@@ -78,6 +78,9 @@ def parseallchat():
 
 def parseoneuser():
 	r = session.get(f'https://discord.com/api/v9/guilds/{guildid}/messages/search?author_id={userid}')
+	if 'Unknown guild' in r.text:
+		logger.error('Uncorrect guild id')
+		return('bad')
 	total_results = loads(r.text)['total_results']
 	messages = []
 	for i in range(0, ceil(total_results/25)):
