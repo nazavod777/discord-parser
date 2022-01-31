@@ -81,7 +81,11 @@ def parseoneuser():
 	if 'Unknown guild' in r.text:
 		logger.error('Uncorrect guild id')
 		return('bad')
-	total_results = loads(r.text)['total_results']
+	try:
+		total_results = loads(r.text)['total_results']
+	except:
+		logger.error(f'Error: {r.text}')
+		return('bad')
 	messages = []
 	for i in range(0, ceil(total_results/25)):
 		try:
